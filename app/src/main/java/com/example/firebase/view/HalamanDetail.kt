@@ -50,4 +50,28 @@ fun DetailSiswaScreen(
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: DetailViewModel = viewModel(factory = PenyediaViewModel.Factory)
-)
+) {
+    Scaffold(
+        topBar = {
+            SiswaTopAppBar(
+                title = stringResource(DestinasiDetail.titleRes),
+                canNavigateBack = true,
+                navigateUp = navigateBack
+            )
+        },
+        floatingActionButton = {
+            val uiState = viewModel.statusUIDetail
+            FloatingActionButton(
+                onClick = {
+                    when(uiState){
+                        is StatusUIDetail.Success -> {
+                            uiState.satusiswa?.let { siswa ->
+                                navigateToEditItem(siswa.id.toInt())
+                            }
+                        }
+                        else -> {}
+                    }
+                },
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
+            )
