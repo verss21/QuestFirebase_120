@@ -136,3 +136,33 @@ private fun BodyDetailDataSiswa(
                     }
                 }
             }
+            is StatusUIDetail.Loading -> {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    CircularProgressIndicator()
+                    Text(
+                        text = "Memuat data...",
+                        modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_small))
+                    )
+                }
+            }
+            is StatusUIDetail.Error -> {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer,
+                        contentColor = MaterialTheme.colorScheme.onErrorContainer
+                    )
+                ) {
+                    Text(
+                        text = "Terjadi kesalahan saat memuat data",
+                        modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+            }
+        }
+
