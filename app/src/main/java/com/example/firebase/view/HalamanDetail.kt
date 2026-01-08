@@ -110,4 +110,29 @@ private fun BodyDetailDataSiswa(
         verticalArrangement = Arrangement.spacedBy(
             dimensionResource(id = R.dimen.padding_medium)
         )
-    )
+    ) {
+        var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
+
+        when(statusUIDetail){
+            is StatusUIDetail.Success -> {
+                if (statusUIDetail.satusiswa != null) {
+                    DetailDataSiswa(
+                        siswa = statusUIDetail.satusiswa,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                } else {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.errorContainer,
+                            contentColor = MaterialTheme.colorScheme.onErrorContainer
+                        )
+                    ) {
+                        Text(
+                            text = "Data siswa tidak ditemukan",
+                            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
+                }
+            }
